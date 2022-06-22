@@ -66,5 +66,34 @@ namespace Service.Services
                 return false;
             }
         }
+
+        public async Task<bool> InsertIntervention(InterventionModel interventionModel)
+        {
+            try
+            {
+                // Créer l'item
+                Intervention intervention = mapper.Map<InterventionModel, Intervention>(interventionModel);
+                intervention.Intervention_ID = Guid.NewGuid().ToString();
+                intervention.Intervention_Date = DateTime.Now;
+                var interventionID = await authentificationRepository.InsertIntervention(intervention);
+                return interventionID == null;
+            }
+            catch (Exception)
+            {
+                //transaction.Rollback();
+                return false;
+            }
+        }
+
+        public async Task<List<DeclarationModel>> GetDeclarations(string date, string validateur)
+        {
+            return mapper.Map<List<Declaration>, List<DeclarationModel>>(await authentificationRepository.GetDeclarations(date, validateur));
+
+        }
+
+        public async Task<List<InterventionModel>> GetInterventions(string date, string declarationID, string equipe, string resultat)
+        {
+            return mapper.Map<List<Intervention>, List<InterventionModel>>(await authentificationRepository.GetInterventions(date, declarationID, equipe, resultat));
+        }
     }
 }

@@ -58,11 +58,24 @@ namespace WebApi.Services
 
         //POST: api/authentification/login
         //End Login
+
+
+
+
+        //Insert Declarations
         [HttpPost]
         [Route("InsertItems")]
         public async Task<bool> InsertItems([FromBody] DeclarationModel declarationModel)
         {
             return await authentificationService.InsertItems(declarationModel);
+        }
+        //Get Declarations
+        [HttpGet]
+        [Route("GetDeclarations/{date}/{validateur}")]
+        public async Task<JsonResult> GetDeclarations(string date, string validateur)
+        {
+            var res = await authentificationService.GetDeclarations(date, validateur);
+            return new JsonResult(res);
         }
 
     }
