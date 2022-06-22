@@ -60,9 +60,9 @@ namespace WebApi.Services
         //End Login
         [HttpPost]
         [Route("InsertItems")]
-        public async Task<bool> InsertItems()
+        public async Task<bool> InsertItems([FromBody] DeclarationModel declarationModel)
         {
-            return await authentificationService.InsertItems();
+            return await authentificationService.InsertItems(declarationModel);
         }
 
     }

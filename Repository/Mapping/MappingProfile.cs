@@ -4,6 +4,7 @@ using Domain.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Domain.Entities;
 
 namespace Repository.Mapping
 {
@@ -13,6 +14,7 @@ namespace Repository.Mapping
         {
             // Entities to Models mapping
             CreateMap<ApplicationUser, UserModel>();
+            CreateMap<Declaration, DeclarationModel>();
         }
     }
 }

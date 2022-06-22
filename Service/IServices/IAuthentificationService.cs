@@ -11,6 +11,6 @@ namespace Service.IServices
         Task<bool> Register(RegisterModel userModel);
         Task<bool> Login(LoginModel loginModel);
         Task<bool> Logout();
-        Task<bool> InsertItems();
+        Task<bool> InsertItems(DeclarationModel declarationModel);
     }
 }

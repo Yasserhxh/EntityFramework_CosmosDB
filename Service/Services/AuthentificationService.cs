@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Authentication;
+using Domain.Entities;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore.Storage;
 using Repository.IRepositories;
@@ -46,20 +47,18 @@ namespace Service.Services
             return await authentificationRepository.Logout();
         }
 
-        public async Task<bool> InsertItems()
+        public async Task<bool> InsertItems(DeclarationModel declarationModel)
         {
           //  using IDbContextTransaction transaction = unitOfWork.BeginTransaction();
             try
             {
                 // Créer l'item
-                var itemID = await authentificationRepository.InsertItemsAsync();
-                if (itemID == null)
-                {
-                    return false;
-                }
-                //transaction.Commit();
-                return true;
-
+                Declaration declaration = mapper.Map<DeclarationModel, Declaration>(declarationModel);
+                declaration.Dclaration_ID = Guid.NewGuid().ToString();
+                declaration.Declaration_Date = DateTime.Now;
+                declaration.Declaration_Statut = "En attente";
+                var declarationID = await authentificationRepository.InsertItems(declaration);
+                return declarationID == null;
             }
             catch (Exception)
             {

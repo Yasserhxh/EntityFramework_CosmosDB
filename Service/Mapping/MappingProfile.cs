@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Authentication;
+using Domain.Entities;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace Service.Mapping
         {
             // Entities to Models mapping
             CreateMap<ApplicationUser, UserModel>();
+            // Models to Entities mapping
+            CreateMap<DeclarationModel, Declaration>();
         }
     }
 }

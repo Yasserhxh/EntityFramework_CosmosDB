@@ -19,13 +19,14 @@ namespace Repository.Repositories
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly ApplicationDbContext _dbConctext;
+        //private readonly ApplicationDbContext _dbConctext;
         private readonly IUnitOfWork unitOfWork;
-        public AuthentificationRepository(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext dbConctext, IUnitOfWork unitOfWork)
+        private readonly ApplicationDbContext _dbContext = new ApplicationDbContext();
+        public AuthentificationRepository(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,/* ApplicationDbContext dbConctext,*/ IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _dbConctext = dbConctext;
+           // _dbConctext = dbConctext;
             this.unitOfWork = unitOfWork;
         }
 
@@ -66,9 +67,9 @@ namespace Repository.Repositories
                 return false;
             }
         }
-        public async Task<string> InsertItemsAsync()
+        public async Task<string> InsertItems(Declaration declaration)
         {
-            var dec = new Declaration()
+           /* var dec = new Declaration()
             {
                 Dclaration_ID = Guid.NewGuid().ToString(),
                 Declaration_Adresse = "Ain Sebaa",
@@ -84,14 +85,41 @@ namespace Repository.Repositories
                 Intervention_Equipe = "Equipe A",
                 Intervention_Commentaire = "Commentaire",
                 Intervention_Resultat = "Pass"
-            };
-            using var _dbConctext = new ApplicationDbContext();
-           // _dbConctext.Interventions.Add(interv);
-            var item = await _dbConctext.Interventions.Where(i=>i.Intervention_DeclarationID== "db30deeb-a8f8-45ab-9204-414379307955").ToListAsync();
-            var confirm = await _dbConctext.SaveChangesAsync();
-            return confirm > 0 ? interv.Intervention_ID : null;
+            };*/
+           
+            _dbContext.declarations.Add(declaration);
+            var confirm = await _dbContext.SaveChangesAsync();
+            return confirm > 0 ? declaration.Dclaration_ID : null;
 
         }
 
+        public async Task<List<Declaration>> GetDeclarations(string date, string validateur)
+        {
+            var query = _dbContext.declarations.Where(d => d.Declaration_Statut == "En attente");
+            if (string.IsNullOrEmpty(date))
+                query.Where(d => Convert.ToDateTime(d.Declaration_Date).ToString("dd/MM/yyyy") == date);
+            if (string.IsNullOrEmpty(validateur))
+                query.Where(d => d.Declaration_Validateur == validateur);
+            return await query.ToListAsync();
+        }
+
+        public async Task<string> InsertIntervention(Intervention intervention)
+        {
+            _dbContext.Interventions.Add(intervention);
+            var confirm = await _dbContext.SaveChangesAsync();
+            return confirm > 0 ? intervention.Intervention_ID : null;
+        }
+
+        public async Task<List<Intervention>> GetInterventions(string date, string declarationID, string equipe, string resultat)
+        {
+            var query = _dbContext.Interventions.Where(d => d.Intervention_DeclarationID == declarationID);
+            if (string.IsNullOrEmpty(date))
+                query.Where(d => Convert.ToDateTime(d.Intervention_Date).ToString("dd/MM/yyyy") == date);
+            if (string.IsNullOrEmpty(equipe))
+                query.Where(d => d.Intervention_Equipe == equipe);
+            if (string.IsNullOrEmpty(resultat))
+                query.Where(d => d.Intervention_Resultat == resultat);
+            return await query.ToListAsync();
+        }
     }
 }

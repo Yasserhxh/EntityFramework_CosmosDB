@@ -1,4 +1,5 @@
 ﻿using Domain.Authentication;
+using Domain.Entities;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,9 @@ namespace Repository.IRepositories
         Task<bool> Register(RegisterModel userModel);
         Task<ApplicationUser> Login(LoginModel loginModel);
         Task<bool> Logout();
-        Task<string> InsertItemsAsync();
+        Task<string> InsertItems(Declaration declaration);
+        Task<string> InsertIntervention(Intervention intervention);
+        Task<List<Declaration>> GetDeclarations(string date, string validateur);
+        Task<List<Intervention>> GetInterventions(string date, string declarationID, string equipe, string resultat);
     }
 }
