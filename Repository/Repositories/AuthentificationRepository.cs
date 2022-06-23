@@ -93,23 +93,23 @@ namespace Repository.Repositories
 
         }
 
-        public async Task<List<Declaration>> GetDeclarations(string date, string validateur, string statut)
+        public  List<Declaration> GetDeclarations(string date, string validateur, string statut)
         {
 
-            var query = _dbContext.declarations;//
+            var query =  _dbContext.declarations.AsEnumerable();//
             if(!string.IsNullOrEmpty(statut))
-                query.Where(d => d.Declaration_Statut == statut);
+                query = query.Where(d => d.Declaration_Statut == statut);
             else
-                query.Where(d => d.Declaration_Statut == "En attente");
+                query = query.Where(d => d.Declaration_Statut == "En attente");
 
             if (!string.IsNullOrEmpty(date))
-                query.Where(d => Convert.ToDateTime(d.Declaration_Date).ToString("dd/MM/yyyy") == date);
+                query = query.Where(d => d.Declaration_Date.Value.ToString("dd/MM/yyyy") == date);
             else
-                query.Where(d => Convert.ToDateTime(d.Declaration_Date).ToString("dd/MM/yyyy") == DateTime.UtcNow.ToString("dd/MM/yyyy"));
+                query = query.Where(d => d.Declaration_Date.Value.Date == DateTime.UtcNow.Date);
 
             if (!string.IsNullOrEmpty(validateur))
-                query.Where(d => d.Declaration_Validateur == validateur);
-            var res = await query.ToListAsync();
+                query = query.Where(d => d.Declaration_Validateur == validateur);
+            var res = query.ToList();
             return res;
         }
         
@@ -124,13 +124,13 @@ namespace Repository.Repositories
         {
             var query = _dbContext.Interventions.Where(d => d.Intervention_DeclarationID == declarationID);
             if (!string.IsNullOrEmpty(date))
-                query.Where(d => Convert.ToDateTime(d.Intervention_Date).ToString("dd/MM/yyyy") == date);
+                query = query.Where(d => Convert.ToDateTime(d.Intervention_Date).ToString("dd/MM/yyyy") == date);
             else
                 query.Where(d => Convert.ToDateTime(d.Intervention_Date).ToString("dd/MM/yyyy") == DateTime.UtcNow.ToString("dd/MM/yyyy"));
             if (!string.IsNullOrEmpty(equipe))
-                query.Where(d => d.Intervention_Equipe == equipe);
+                query = query.Where(d => d.Intervention_Equipe == equipe);
             if (!string.IsNullOrEmpty(resultat))
-                query.Where(d => d.Intervention_Resultat == resultat);
+                query = query.Where(d => d.Intervention_Resultat == resultat);
             return await query.ToListAsync();
         }
     }

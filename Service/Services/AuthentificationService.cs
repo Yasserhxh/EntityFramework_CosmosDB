@@ -85,11 +85,11 @@ namespace Service.Services
             }
         }
 
-        public async Task<List<Declaration>> GetDeclarations(string date, string validateur, string statut)
+        public List<Declaration> GetDeclarations(string date, string validateur, string statut)
         {
-            var res = await authentificationRepository.GetDeclarations(date, validateur, statut);
+            var res =  authentificationRepository.GetDeclarations(date, validateur, statut);
             foreach(var item in res)
-                item.Declaration_Date = Convert.ToDateTime(item.Declaration_Date.Value.ToString("dd/MM/yyyy hh:mm:ss"));
+                item.Declaration_Date = Convert.ToDateTime(item.Declaration_Date.Value.ToString("dd/MM/yyyy hh:mm:ss").Replace('T',' '));
             return res;
 
         }

@@ -14,7 +14,7 @@ namespace Service.IServices
         Task<bool> Logout();
         Task<bool> InsertItems(DeclarationModel declarationModel);
         Task<bool> InsertIntervention(InterventionModel interventionModel);
-        Task<List<Declaration>> GetDeclarations(string date, string validateur, string statut);
+        List<Declaration> GetDeclarations(string date, string validateur, string statut);
         Task<List<InterventionModel>> GetInterventions(string date, string declarationID, string equipe, string resultat);
     }
 }
