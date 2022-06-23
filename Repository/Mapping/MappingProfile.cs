@@ -15,6 +15,8 @@ namespace Repository.Mapping
             // Entities to Models mapping
             CreateMap<ApplicationUser, UserModel>();
             CreateMap<Declaration, DeclarationModel>();
+            CreateMap<DeclarationModel, Declaration>();
+
         }
     }
 }

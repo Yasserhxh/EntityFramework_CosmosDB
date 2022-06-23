@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Repository.Data;
 using Repository.IRepositories;
+using Repository.Mapping;
 using Repository.Repositories;
 using Repository.UnitOfWork;
 using Service.IServices;
@@ -43,7 +44,7 @@ namespace WebApi
             services.AddScoped<IAuthentificationService, AuthentificationService>();
             services.AddScoped<IAuthentificationRepository, AuthentificationRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(typeof(MappingProfile));
             services.AddControllers();
             services.AddCors(options =>
             {

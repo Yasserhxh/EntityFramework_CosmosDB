@@ -13,6 +13,7 @@ using Repository.IRepositories;
 using Repository.Repositories;
 using Repository.UnitOfWork;
 using Service.IServices;
+using Service.Mapping;
 using Service.Services;
 using System;
 using System.Collections.Generic;
@@ -60,7 +61,7 @@ namespace TempOnion
 
             services.AddControllersWithViews();
 
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(typeof(MappingProfile));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

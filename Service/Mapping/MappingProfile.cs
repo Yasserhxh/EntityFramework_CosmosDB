@@ -16,6 +16,8 @@ namespace Service.Mapping
             CreateMap<ApplicationUser, UserModel>();
             // Models to Entities mapping
             CreateMap<DeclarationModel, Declaration>();
+            CreateMap<Declaration, DeclarationModel>();
+
         }
     }
 }

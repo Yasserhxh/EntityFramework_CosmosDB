@@ -71,10 +71,11 @@ namespace WebApi.Services
         }
         //Get Declarations
         [HttpGet]
-        [Route("GetDeclarations/{date}/{validateur}")]
-        public async Task<JsonResult> GetDeclarations(string date, string validateur)
+        [Route("GetDeclarations")]
+        public async Task<JsonResult> GetDeclarations([FromBody] DeclarationModel declarationModel)
         {
-            var res = await authentificationService.GetDeclarations(date, validateur);
+            var date = Convert.ToDateTime(declarationModel.Declaration_Date).ToString("dd/MM/yyyy");
+            var res = await authentificationService.GetDeclarations(date, declarationModel.Declaration_Validateur, declarationModel.Declaration_Statut);
             return new JsonResult(res);
         }
 

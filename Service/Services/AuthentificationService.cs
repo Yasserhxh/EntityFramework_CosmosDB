@@ -55,10 +55,10 @@ namespace Service.Services
                 // Créer l'item
                 Declaration declaration = mapper.Map<DeclarationModel, Declaration>(declarationModel);
                 declaration.Dclaration_ID = Guid.NewGuid().ToString();
-                declaration.Declaration_Date = DateTime.Now;
+                declaration.Declaration_Date = DateTime.UtcNow;
                 declaration.Declaration_Statut = "En attente";
                 var declarationID = await authentificationRepository.InsertItems(declaration);
-                return declarationID == null;
+                return declarationID != null;
             }
             catch (Exception)
             {
@@ -74,9 +74,9 @@ namespace Service.Services
                 // Créer l'item
                 Intervention intervention = mapper.Map<InterventionModel, Intervention>(interventionModel);
                 intervention.Intervention_ID = Guid.NewGuid().ToString();
-                intervention.Intervention_Date = DateTime.Now;
+                intervention.Intervention_Date = DateTime.UtcNow;
                 var interventionID = await authentificationRepository.InsertIntervention(intervention);
-                return interventionID == null;
+                return interventionID != null;
             }
             catch (Exception)
             {
@@ -85,9 +85,12 @@ namespace Service.Services
             }
         }
 
-        public async Task<List<DeclarationModel>> GetDeclarations(string date, string validateur)
+        public async Task<List<Declaration>> GetDeclarations(string date, string validateur, string statut)
         {
-            return mapper.Map<List<Declaration>, List<DeclarationModel>>(await authentificationRepository.GetDeclarations(date, validateur));
+            var res = await authentificationRepository.GetDeclarations(date, validateur, statut);
+            foreach(var item in res)
+                item.Declaration_Date = Convert.ToDateTime(item.Declaration_Date.Value.ToString("dd/MM/yyyy hh:mm:ss"));
+            return res;
 
         }
 

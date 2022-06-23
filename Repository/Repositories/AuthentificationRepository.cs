@@ -93,16 +93,26 @@ namespace Repository.Repositories
 
         }
 
-        public async Task<List<Declaration>> GetDeclarations(string date, string validateur)
+        public async Task<List<Declaration>> GetDeclarations(string date, string validateur, string statut)
         {
-            var query = _dbContext.declarations.Where(d => d.Declaration_Statut == "En attente");
-            if (string.IsNullOrEmpty(date))
-                query.Where(d => Convert.ToDateTime(d.Declaration_Date).ToString("dd/MM/yyyy") == date);
-            if (string.IsNullOrEmpty(validateur))
-                query.Where(d => d.Declaration_Validateur == validateur);
-            return await query.ToListAsync();
-        }
 
+            var query = _dbContext.declarations;//
+            if(!string.IsNullOrEmpty(statut))
+                query.Where(d => d.Declaration_Statut == statut);
+            else
+                query.Where(d => d.Declaration_Statut == "En attente");
+
+            if (!string.IsNullOrEmpty(date))
+                query.Where(d => Convert.ToDateTime(d.Declaration_Date).ToString("dd/MM/yyyy") == date);
+            else
+                query.Where(d => Convert.ToDateTime(d.Declaration_Date).ToString("dd/MM/yyyy") == DateTime.UtcNow.ToString("dd/MM/yyyy"));
+
+            if (!string.IsNullOrEmpty(validateur))
+                query.Where(d => d.Declaration_Validateur == validateur);
+            var res = await query.ToListAsync();
+            return res;
+        }
+        
         public async Task<string> InsertIntervention(Intervention intervention)
         {
             _dbContext.Interventions.Add(intervention);
@@ -113,11 +123,13 @@ namespace Repository.Repositories
         public async Task<List<Intervention>> GetInterventions(string date, string declarationID, string equipe, string resultat)
         {
             var query = _dbContext.Interventions.Where(d => d.Intervention_DeclarationID == declarationID);
-            if (string.IsNullOrEmpty(date))
+            if (!string.IsNullOrEmpty(date))
                 query.Where(d => Convert.ToDateTime(d.Intervention_Date).ToString("dd/MM/yyyy") == date);
-            if (string.IsNullOrEmpty(equipe))
+            else
+                query.Where(d => Convert.ToDateTime(d.Intervention_Date).ToString("dd/MM/yyyy") == DateTime.UtcNow.ToString("dd/MM/yyyy"));
+            if (!string.IsNullOrEmpty(equipe))
                 query.Where(d => d.Intervention_Equipe == equipe);
-            if (string.IsNullOrEmpty(resultat))
+            if (!string.IsNullOrEmpty(resultat))
                 query.Where(d => d.Intervention_Resultat == resultat);
             return await query.ToListAsync();
         }

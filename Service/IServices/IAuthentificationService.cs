@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Domain.Entities;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Service.IServices
         Task<bool> Logout();
         Task<bool> InsertItems(DeclarationModel declarationModel);
         Task<bool> InsertIntervention(InterventionModel interventionModel);
-        Task<List<DeclarationModel>> GetDeclarations(string date, string validateur);
+        Task<List<Declaration>> GetDeclarations(string date, string validateur, string statut);
         Task<List<InterventionModel>> GetInterventions(string date, string declarationID, string equipe, string resultat);
     }
 }

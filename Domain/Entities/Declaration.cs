@@ -31,21 +31,5 @@ namespace Domain.Entities
             return JsonSerializer.Serialize(this);
         }
     }
-    public class Intervention
-    {
-        [JsonPropertyName("Intervention_ID")]
-        [Key]
-      //  [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string Intervention_ID { get; set; }
-        public string Intervention_DeclarationID { get; set; }
-        public DateTime? Intervention_Date { get; set; }
-        public string Intervention_Equipe { get; set; }
-        public string Intervention_Resultat { get; set; }
-        public string Intervention_Commentaire { get; set; }
-        //public Declaration Declaration { get; set; }
-        public override string ToString()
-        {
-            return JsonSerializer.Serialize(this);
-        }
-    }
+   
 }
