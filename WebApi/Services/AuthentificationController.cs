@@ -79,6 +79,20 @@ namespace WebApi.Services
             var res = authentificationService.GetDeclarations(date, declarationModel.Declaration_Validateur, declarationModel.Declaration_Statut);
             return new JsonResult(res);
         }
+        [HttpPost]
+        [Route("InsertIntervention")]
+        public async Task<bool> InsertIntervention([FromBody] InterventionModel interventionModel)
+        {
+            return await authentificationService.InsertIntervention(interventionModel);
+        }
+        [HttpGet]
+        [Route("GetInterventions")]
+        public JsonResult GetInterventions([FromBody] InterventionModel interventionModel)
+        {
+            var date = interventionModel.Intervention_Date != null ? Convert.ToDateTime(interventionModel.Intervention_Date).ToString() : "";
 
+            var res = authentificationService.GetInterventions(date, interventionModel.Intervention_DeclarationID, interventionModel.Intervention_Equipe, interventionModel.Intervention_Resultat);
+            return new JsonResult(res);
+        }
     }
 }
