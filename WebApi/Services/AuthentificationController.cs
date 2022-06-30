@@ -65,12 +65,12 @@ namespace WebApi.Services
         //Insert Declarations
         [HttpPost]
         [Route("InsertItems")]
-        public async Task<bool> InsertItems([FromBody] DeclarationModel declarationModel)
+        public async Task<string> InsertItems([FromBody] DeclarationModel declarationModel)
         {
             return await authentificationService.InsertItems(declarationModel);
         }
         //Get Declarations
-        [HttpGet]
+        [HttpPost]
         [Route("GetDeclarations")]
         public JsonResult GetDeclarations([FromBody] DeclarationModel declarationModel)
         {
@@ -85,7 +85,7 @@ namespace WebApi.Services
         {
             return await authentificationService.InsertIntervention(interventionModel);
         }
-        [HttpGet]
+        [HttpPost]
         [Route("GetInterventions")]
         public JsonResult GetInterventions([FromBody] InterventionModel interventionModel)
         {
@@ -93,6 +93,14 @@ namespace WebApi.Services
 
             var res = authentificationService.GetInterventions(date, interventionModel.Intervention_DeclarationID, interventionModel.Intervention_Equipe, interventionModel.Intervention_Resultat);
             return new JsonResult(res);
+        } 
+        [HttpPost]
+        [Route("ValiderDeclaration")]
+        public async Task<bool> ValiderDeclaration([FromBody] DeclarationModel declarationModel)
+        {
+
+            var res = await authentificationService.ValiderDeclaration(declarationModel.Dclaration_ID, declarationModel.Declaration_Statut);
+            return  res;
         }
     }
 }

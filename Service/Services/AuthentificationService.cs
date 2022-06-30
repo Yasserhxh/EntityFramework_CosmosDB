@@ -47,7 +47,7 @@ namespace Service.Services
             return await authentificationRepository.Logout();
         }
 
-        public async Task<bool> InsertItems(DeclarationModel declarationModel)
+        public async Task<string> InsertItems(DeclarationModel declarationModel)
         {
           //  using IDbContextTransaction transaction = unitOfWork.BeginTransaction();
             try
@@ -57,13 +57,14 @@ namespace Service.Services
                 declaration.Dclaration_ID = Guid.NewGuid().ToString();
                 declaration.Declaration_Date = DateTime.UtcNow;
                 declaration.Declaration_Statut = "En attente";
+                declaration.Declaration_Photo = "PhotoAPI";
                 var declarationID = await authentificationRepository.InsertItems(declaration);
-                return declarationID != null;
+                return declarationID != null ? declarationID : null;
             }
             catch (Exception)
             {
                 //transaction.Rollback();
-                return false;
+                return null;
             }
         }
 
@@ -97,6 +98,11 @@ namespace Service.Services
         public List<InterventionModel> GetInterventions(string date, string declarationID, string equipe, string resultat)
         {
             return mapper.Map<List<Intervention>, List<InterventionModel>>( authentificationRepository.GetInterventions(date, declarationID, equipe, resultat));
+        }
+
+        public async Task<bool> ValiderDeclaration(string declarationID, string statut)
+        {
+            return await this.authentificationRepository.ValiderDeclaration(declarationID, statut);
         }
     }
 }

@@ -100,11 +100,16 @@ namespace Repository.Repositories
             if (!string.IsNullOrEmpty(statut))
                 query = query.Where(d => d.Declaration_Statut == statut);
             //else
-                //query = query.Where(d => d.Declaration_Statut == "En attente");
+            //query = query.Where(d => d.Declaration_Statut == "En attente");
 
             if (!string.IsNullOrEmpty(date))
-                query = query.Where(d => d.Declaration_Date.Value.ToString("dd/MM/yyyy") == date);
-            //else
+            {
+                //var datetime = DateTime.ParseExact(@date, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                //query = query.Where(d => d.Declaration_Date.Value.ToString("dd/MM/yyyy") == date); 
+               // query = query.Where(d => d.Declaration_Date.Value.Date == DateTime.UtcNow.Date);
+
+            }
+           // else
                 //query = query.Where(d => d.Declaration_Date.Value.Date == DateTime.UtcNow.Date);
 
             if (!string.IsNullOrEmpty(validateur))
@@ -132,6 +137,18 @@ namespace Repository.Repositories
             if (!string.IsNullOrEmpty(resultat))
                 query = query.Where(d => d.Intervention_Resultat == resultat);
             return  query.ToList();
+        }
+        public async Task<bool> ValiderDeclaration(string declarationID, string statut)
+        {
+            var dec = _dbContext.declarations.Where(p => p.Dclaration_ID == declarationID).FirstOrDefault();
+            if (dec != null)
+            {
+                dec.Declaration_Statut = statut;
+                _dbContext.Entry(dec).State = EntityState.Modified;
+
+            }
+            var confirm = await _dbContext.SaveChangesAsync();
+            return confirm > 0;
         }
     }
 }

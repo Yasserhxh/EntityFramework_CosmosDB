@@ -17,5 +17,6 @@ namespace Repository.IRepositories
         Task<string> InsertIntervention(Intervention intervention);
         List<Declaration> GetDeclarations(string date, string validateur, string statut);
         List<Intervention> GetInterventions(string date, string declarationID, string equipe, string resultat);
+        Task<bool> ValiderDeclaration(string declarationID, string statut);
     }
 }
