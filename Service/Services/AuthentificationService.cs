@@ -88,15 +88,15 @@ namespace Service.Services
         public List<Declaration> GetDeclarations(string date, string validateur, string statut)
         {
             var res =  authentificationRepository.GetDeclarations(date, validateur, statut);
-            foreach(var item in res)
-                item.Declaration_Date = Convert.ToDateTime(item.Declaration_Date.Value.ToString("dd/MM/yyyy hh:mm:ss").Replace('T',' '));
+            //foreach(var item in res)
+                //item.Declaration_Date = Convert.ToDateTime(item.Declaration_Date.Value.ToString("dd/MM/yyyy hh:mm:ss").Replace('T',' '));
             return res;
 
         }
 
-        public async Task<List<InterventionModel>> GetInterventions(string date, string declarationID, string equipe, string resultat)
+        public List<InterventionModel> GetInterventions(string date, string declarationID, string equipe, string resultat)
         {
-            return mapper.Map<List<Intervention>, List<InterventionModel>>(await authentificationRepository.GetInterventions(date, declarationID, equipe, resultat));
+            return mapper.Map<List<Intervention>, List<InterventionModel>>( authentificationRepository.GetInterventions(date, declarationID, equipe, resultat));
         }
     }
 }

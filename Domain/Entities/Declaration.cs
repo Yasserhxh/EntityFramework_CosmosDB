@@ -25,7 +25,7 @@ namespace Domain.Entities
         public string Declaration_Statut { get; set; }
         public string Declaration_Validateur { get; set; }
         public DateTime? Declaration_DateValidation { get; set; }
-       // public IList<Intervention> Interventions { get; set; }
+        // public IList<Intervention> Interventions { get; set; }
         public override string ToString()
         {
             return JsonSerializer.Serialize(this);

@@ -97,15 +97,15 @@ namespace Repository.Repositories
         {
 
             var query =  _dbContext.declarations.AsEnumerable();//
-            if(!string.IsNullOrEmpty(statut))
+            if (!string.IsNullOrEmpty(statut))
                 query = query.Where(d => d.Declaration_Statut == statut);
-            else
-                query = query.Where(d => d.Declaration_Statut == "En attente");
+            //else
+                //query = query.Where(d => d.Declaration_Statut == "En attente");
 
             if (!string.IsNullOrEmpty(date))
                 query = query.Where(d => d.Declaration_Date.Value.ToString("dd/MM/yyyy") == date);
-            else
-                query = query.Where(d => d.Declaration_Date.Value.Date == DateTime.UtcNow.Date);
+            //else
+                //query = query.Where(d => d.Declaration_Date.Value.Date == DateTime.UtcNow.Date);
 
             if (!string.IsNullOrEmpty(validateur))
                 query = query.Where(d => d.Declaration_Validateur == validateur);
@@ -120,7 +120,7 @@ namespace Repository.Repositories
             return confirm > 0 ? intervention.Intervention_ID : null;
         }
 
-        public async Task<List<Intervention>> GetInterventions(string date, string declarationID, string equipe, string resultat)
+        public List<Intervention> GetInterventions(string date, string declarationID, string equipe, string resultat)
         {
             var query = _dbContext.Interventions.Where(d => d.Intervention_DeclarationID == declarationID);
             if (!string.IsNullOrEmpty(date))
@@ -131,7 +131,7 @@ namespace Repository.Repositories
                 query = query.Where(d => d.Intervention_Equipe == equipe);
             if (!string.IsNullOrEmpty(resultat))
                 query = query.Where(d => d.Intervention_Resultat == resultat);
-            return await query.ToListAsync();
+            return  query.ToList();
         }
     }
 }

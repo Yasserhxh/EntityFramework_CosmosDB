@@ -15,6 +15,7 @@ using Repository.UnitOfWork;
 using Service.IServices;
 using Service.Services;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace WebApi
 {
@@ -45,7 +46,7 @@ namespace WebApi
             services.AddScoped<IAuthentificationRepository, AuthentificationRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(typeof(MappingProfile));
-            services.AddControllers();
+            services.AddControllers(); //.AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowCors",

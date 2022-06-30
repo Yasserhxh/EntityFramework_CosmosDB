@@ -78,7 +78,7 @@ namespace WebApi.Services
 
             var res = authentificationService.GetDeclarations(date, declarationModel.Declaration_Validateur, declarationModel.Declaration_Statut);
             return new JsonResult(res);
-        }
+        }  
         [HttpPost]
         [Route("InsertIntervention")]
         public async Task<bool> InsertIntervention([FromBody] InterventionModel interventionModel)

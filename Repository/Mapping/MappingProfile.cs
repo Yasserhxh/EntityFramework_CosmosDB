@@ -17,6 +17,8 @@ namespace Repository.Mapping
             CreateMap<Declaration, DeclarationModel>();
             CreateMap<DeclarationModel, Declaration>();
 
+            CreateMap<InterventionModel, Intervention>();
+            CreateMap<Intervention, InterventionModel>();
         }
     }
 }

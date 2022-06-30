@@ -15,6 +15,6 @@ namespace Service.IServices
         Task<bool> InsertItems(DeclarationModel declarationModel);
         Task<bool> InsertIntervention(InterventionModel interventionModel);
         List<Declaration> GetDeclarations(string date, string validateur, string statut);
-        Task<List<InterventionModel>> GetInterventions(string date, string declarationID, string equipe, string resultat);
+        List<InterventionModel> GetInterventions(string date, string declarationID, string equipe, string resultat);
     }
 }

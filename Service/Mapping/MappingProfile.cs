@@ -18,6 +18,9 @@ namespace Service.Mapping
             CreateMap<DeclarationModel, Declaration>();
             CreateMap<Declaration, DeclarationModel>();
 
+            CreateMap<InterventionModel, Intervention>();
+            CreateMap<Intervention,InterventionModel>();
+
         }
     }
 }

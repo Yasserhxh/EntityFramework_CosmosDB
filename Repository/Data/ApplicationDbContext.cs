@@ -20,8 +20,8 @@ namespace Repository.Data
         }
         public DbSet<Declaration> declarations { get; set; }
         public DbSet<Intervention> Interventions { get; set; }
-        private static string ToJson<T>(T item) => JsonSerializer.Serialize(item);
-        private static T FromJson<T>(IList<Intervention> json) => JsonSerializer.Deserialize<T>(json.ToString());
+        //private static string ToJson<T>(T item) => JsonSerializer.Serialize(item);
+       // private static T FromJson<T>(IList<Intervention> json) => JsonSerializer.Deserialize<T>(json.ToString());
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
