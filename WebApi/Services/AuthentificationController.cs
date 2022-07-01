@@ -70,7 +70,7 @@ namespace WebApi.Services
             return await authentificationService.InsertItems(declarationModel);
         }
         //Get Declarations
-        [HttpPost]
+        [HttpGet]
         [Route("GetDeclarations")]
         public JsonResult GetDeclarations([FromBody] DeclarationModel declarationModel)
         {
@@ -85,7 +85,7 @@ namespace WebApi.Services
         {
             return await authentificationService.InsertIntervention(interventionModel);
         }
-        [HttpPost]
+        [HttpGet]
         [Route("GetInterventions")]
         public JsonResult GetInterventions([FromBody] InterventionModel interventionModel)
         {
