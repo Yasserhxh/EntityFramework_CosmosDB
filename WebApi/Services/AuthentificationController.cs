@@ -89,8 +89,8 @@ namespace WebApi.Services
         [Route("GetInterventions")]
         public JsonResult GetInterventions([FromBody] InterventionModel interventionModel)
         {
+            //var query = new GetAllInterventions();
             var date = interventionModel.Intervention_Date != null ? Convert.ToDateTime(interventionModel.Intervention_Date).ToString() : "";
-
             var res = authentificationService.GetInterventions(date, interventionModel.Intervention_DeclarationID, interventionModel.Intervention_Equipe, interventionModel.Intervention_Resultat);
             return new JsonResult(res);
         } 
