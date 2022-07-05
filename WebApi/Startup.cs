@@ -1,5 +1,4 @@
 using Domain.Authentication;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -59,7 +58,7 @@ namespace WebApi
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Latest);
 
             //Add mediatR
-            services.AddMediatR(typeof(Startup));
+          //  services.AddMediatR(typeof(Startup));
 
         }
 

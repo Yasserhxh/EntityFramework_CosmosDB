@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcService.Server.Protos";
+
+package declarations;
+
+// The greeting service definition.
+service DeclarationService {
+	// Sends a greeting
+	rpc GetDeclarations (Empty) returns (Declarations);
+
+}
+
+message Empty {}
+message GetAllDeclarations
+{
+	string date = 1;
+	string validateur = 2;
+	string statut = 3;
+
+}
+message Declaration {
+    int32 Declaration_ID = 1;
+    string Declaration_Date = 2;
+    string Declaration_Adresse = 3;
+    string Declaration_Ville = 4;
+    string Declaration_Localisation = 5;
+    string Declaration_Statut = 6;
+    string Declaration_Validateur = 7;
+}
+message Declarations {
+    repeated Declaration items = 1;
+}
