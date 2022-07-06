@@ -8,6 +8,7 @@ package declarations;
 service DeclarationService {
 	// Sends a greeting
 	rpc GetDeclarations (Empty) returns (Declarations);
+	rpc GetDeclarationsStream (Empty) returns (stream Declarations);
 
 }
 
@@ -20,7 +21,7 @@ message GetAllDeclarations
 
 }
 message Declaration {
-    int32 Declaration_ID = 1;
+    string Declaration_ID = 1;
     string Declaration_Date = 2;
     string Declaration_Adresse = 3;
     string Declaration_Ville = 4;
