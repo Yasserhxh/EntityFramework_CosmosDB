@@ -2,6 +2,7 @@ syntax = "proto3";
 
 option csharp_namespace = "GrpcService.Server.Protos";
 
+
 package declarations;
 
 // The greeting service definition.
