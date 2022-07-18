@@ -99,18 +99,18 @@ namespace Repository.Repositories
             var query =  _dbContext.declarations.AsEnumerable();//
             if (!string.IsNullOrEmpty(statut))
                 query = query.Where(d => d.Declaration_Statut == statut);
-            //else
-            //query = query.Where(d => d.Declaration_Statut == "En attente");
+            else
+            query = query.Where(d => d.Declaration_Statut == "En attente");
 
             if (!string.IsNullOrEmpty(date))
             {
                 //var datetime = DateTime.ParseExact(@date, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-                //query = query.Where(d => d.Declaration_Date.Value.ToString("dd/MM/yyyy") == date); 
-               // query = query.Where(d => d.Declaration_Date.Value.Date == DateTime.UtcNow.Date);
+                query = query.Where(d => d.Declaration_Date.Value.ToString("dd/MM/yyyy") == date); 
+                //query = query.Where(d => d.Declaration_Date.Value.Date == DateTime.UtcNow.Date);
 
             }
-           // else
-                //query = query.Where(d => d.Declaration_Date.Value.Date == DateTime.UtcNow.Date);
+            else
+                query = query.Where(d => d.Declaration_Date.Value.Date == DateTime.UtcNow.Date);
 
             if (!string.IsNullOrEmpty(validateur))
                 query = query.Where(d => d.Declaration_Validateur == validateur);
