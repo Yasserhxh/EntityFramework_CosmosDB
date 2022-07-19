@@ -12,7 +12,7 @@ namespace Service.IServices
         Task<bool> Register(RegisterModel userModel);
         Task<bool> Login(LoginModel loginModel);
         Task<bool> Logout();
-        Task<string> InsertItems(DeclarationModel declarationModel);
+        Task<bool?> InsertItems(DeclarationModel declarationModel);
         Task<bool> InsertIntervention(InterventionModel interventionModel);
         List<Declaration> GetDeclarations(string date, string validateur, string statut);
         List<InterventionModel> GetInterventions(string date, string declarationID, string equipe, string resultat);

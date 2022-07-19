@@ -19,6 +19,7 @@ namespace Domain.Entities
         public DateTime? Intervention_Date { get; set; }
         public string Intervention_Equipe { get; set; }
         public string Intervention_Resultat { get; set; }
+        public string Intervention_Priorite { get; set; }
         public string Intervention_Commentaire { get; set; }
         //public Declaration Declaration { get; set; }
         public override string ToString()

@@ -127,11 +127,11 @@ namespace Repository.Repositories
 
         public List<Intervention> GetInterventions(string date, string declarationID, string equipe, string resultat)
         {
-            var query = _dbContext.Interventions.Where(d => d.Intervention_DeclarationID == declarationID);
+            var query = _dbContext.Interventions.AsQueryable();//.Where(d => d.Intervention_DeclarationID == declarationID);////
             if (!string.IsNullOrEmpty(date))
                 query = query.Where(d => Convert.ToDateTime(d.Intervention_Date).ToString("dd/MM/yyyy") == date);
-            else
-                query.Where(d => Convert.ToDateTime(d.Intervention_Date).ToString("dd/MM/yyyy") == DateTime.UtcNow.ToString("dd/MM/yyyy"));
+            //else
+                //query.Where(d => Convert.ToDateTime(d.Intervention_Date).ToString("dd/MM/yyyy") == DateTime.UtcNow.ToString("dd/MM/yyyy"));
             if (!string.IsNullOrEmpty(equipe))
                 query = query.Where(d => d.Intervention_Equipe == equipe);
             if (!string.IsNullOrEmpty(resultat))

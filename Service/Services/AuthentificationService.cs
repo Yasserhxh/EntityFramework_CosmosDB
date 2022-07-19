@@ -47,7 +47,7 @@ namespace Service.Services
             return await authentificationRepository.Logout();
         }
 
-        public async Task<string> InsertItems(DeclarationModel declarationModel)
+        public async Task<bool?> InsertItems(DeclarationModel declarationModel)
         {
           //  using IDbContextTransaction transaction = unitOfWork.BeginTransaction();
             try
@@ -57,9 +57,9 @@ namespace Service.Services
                 declaration.Dclaration_ID = Guid.NewGuid().ToString();
                 declaration.Declaration_Date = DateTime.UtcNow;
                 declaration.Declaration_Statut = "En attente";
-                declaration.Declaration_Photo = "PhotoAPI";
+            //    declaration.Declaration_Photo = "PhotoAPI";
                 var declarationID = await authentificationRepository.InsertItems(declaration);
-                return declarationID != null ? declarationID : null;
+                return declarationID != null ? true : false;
             }
             catch (Exception)
             {
