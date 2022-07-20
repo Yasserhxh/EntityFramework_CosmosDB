@@ -72,11 +72,11 @@ namespace WebApi.Services
         //Get Declarations
         [HttpPost]
         [Route("GetDeclarations")]
-        public JsonResult GetDeclarations([FromBody] DeclarationModel declarationModel)
+        public JsonResult GetDeclarations([FromBody] FilterModel filterModel)
         {
-            var date =  declarationModel.Declaration_Date != null ? Convert.ToDateTime(declarationModel.Declaration_Date).ToString() : "";
-
-            var res = authentificationService.GetDeclarations(date, declarationModel.Declaration_Validateur, declarationModel.Declaration_Statut);
+           // var date =  declarationModel.Declaration_Date != null ? Convert.ToDateTime(declarationModel.Declaration_Date).ToString() : "";
+            var date = filterModel.date ?? "";
+            var res = authentificationService.GetDeclarations(date, filterModel.validateur, filterModel.statut);
             return new JsonResult(res);
         }  
         [HttpPost]
@@ -87,18 +87,17 @@ namespace WebApi.Services
         }
         [HttpPost]
         [Route("GetInterventions")]
-        public JsonResult GetInterventions([FromBody] InterventionModel interventionModel)
+        public JsonResult GetInterventions([FromBody] FilterModel filterModel)
         {
             //var query = new GetAllInterventions();
-            var date = interventionModel.Intervention_Date != null ? Convert.ToDateTime(interventionModel.Intervention_Date).ToString() : "";
-            var res = authentificationService.GetInterventions(date, interventionModel.Intervention_DeclarationID, interventionModel.Intervention_Equipe, interventionModel.Intervention_Resultat);
+            var date = filterModel.date ?? "";
+            var res = authentificationService.GetInterventions(date, filterModel.declarationID, filterModel.equipe, filterModel.resultat);
             return new JsonResult(res);
         } 
         [HttpPost]
         [Route("ValiderDeclaration")]
         public async Task<bool> ValiderDeclaration([FromBody] DeclarationModel declarationModel)
         {
-
             var res = await authentificationService.ValiderDeclaration(declarationModel.Dclaration_ID, declarationModel.Declaration_Statut);
             return  res;
         }

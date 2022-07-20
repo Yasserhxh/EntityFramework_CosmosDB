@@ -12,6 +12,7 @@ using Repository.UnitOfWork;
 using Domain.Entities;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace Repository.Repositories
 {
@@ -95,27 +96,33 @@ namespace Repository.Repositories
 
         public  List<Declaration> GetDeclarations(string date, string validateur, string statut)
         {
+            CultureInfo provider = new CultureInfo("en-US");
+            string[] validformats = new[] { "MM/dd/yyyy", "yyyy/MM/dd", "MM/dd/yyyy HH:mm:ss",
+                                        "MM/dd/yyyy hh:mm tt", "yyyy-MM-dd HH:mm:ss, fff" };
 
-            var query =  _dbContext.declarations.AsEnumerable();//
+            var query =  _dbContext.declarations.OrderByDescending(p=>p.Declaration_Date).AsEnumerable();//
             if (!string.IsNullOrEmpty(statut))
                 query = query.Where(d => d.Declaration_Statut == statut);
             else
-            query = query.Where(d => d.Declaration_Statut == "En attente");
+                query = query.Where(d => d.Declaration_Statut == "En attente");
 
             if (!string.IsNullOrEmpty(date))
             {
+                DateTime dateTime = DateTime.ParseExact(date, validformats, provider);
                 //var datetime = DateTime.ParseExact(@date, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-                query = query.Where(d => d.Declaration_Date.Value.ToString("dd/MM/yyyy") == date); 
+                query = query.Where(d => d.Declaration_Date.Value == dateTime); 
                 //query = query.Where(d => d.Declaration_Date.Value.Date == DateTime.UtcNow.Date);
 
             }
             else
-                query = query.Where(d => d.Declaration_Date.Value.Date == DateTime.UtcNow.Date);
+                //query = query.Where(d => d.Declaration_Date.Value.Date == DateTime.UtcNow.Date);
 
             if (!string.IsNullOrEmpty(validateur))
                 query = query.Where(d => d.Declaration_Validateur == validateur);
-            var res = query.ToList();
-            return res;
+            return query == null ? new List<Declaration>() : query.ToList();
+           
+            /*var res = ;
+            return res;*/
         }
         
         public async Task<string> InsertIntervention(Intervention intervention)

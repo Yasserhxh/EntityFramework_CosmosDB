@@ -19,8 +19,8 @@ namespace Domain.Entities
         public DateTime? Declaration_Date { get; set; }
         public string Declaration_Adresse { get; set; }
         public string Declaration_Ville { get; set; }
-        public string Declaration_Localisation { get; set; }
-        public string Declaration_LongLat { get; set; }
+        public string Declaration_Latitude { get; set; }
+        public string Declaration_Longitude { get; set; }
         public string Declaration_Photo { get; set; }
         public string Declaration_Statut { get; set; }
         public string Declaration_Validateur { get; set; }
