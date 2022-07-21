@@ -101,5 +101,12 @@ namespace WebApi.Services
             var res = await authentificationService.ValiderDeclaration(declarationModel.Dclaration_ID, declarationModel.Declaration_Statut);
             return  res;
         }
+        [HttpPost]
+        [Route("ValiderIntervention")]
+        public async Task<bool> ValiderIntervention([FromBody] FilterModel filterModel)
+        {
+            var res = await authentificationService.ValiderIntervention(filterModel.declarationID, filterModel.statut, filterModel.validateur);
+            return  res;
+        }
     }
 }
