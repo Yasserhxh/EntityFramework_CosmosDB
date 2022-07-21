@@ -108,9 +108,9 @@ namespace Repository.Repositories
 
             if (!string.IsNullOrEmpty(date))
             {
-                DateTime dateTime = DateTime.ParseExact(date, validformats, provider);
-                //var datetime = DateTime.ParseExact(@date, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-                query = query.Where(d => d.Declaration_Date.Value == dateTime); 
+               // DateTime dateTime = DateTime.ParseExact(date, validformats, provider);
+               //var datetime = DateTime.ParseExact(@date, "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                query = query.Where(d => d.Declaration_Date.Value.ToString("M/dd/yyyy") == date); 
                 //query = query.Where(d => d.Declaration_Date.Value.Date == DateTime.UtcNow.Date);
 
             }
