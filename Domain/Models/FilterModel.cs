@@ -15,5 +15,6 @@ namespace Domain.Models
         public string equipe { get; set; }
         public string resultat { get; set; }
         public string declarationID { get; set; }
+        public string interventionID { get; set; }
     }
 }

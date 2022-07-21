@@ -105,7 +105,7 @@ namespace WebApi.Services
         [Route("ValiderIntervention")]
         public async Task<bool> ValiderIntervention([FromBody] FilterModel filterModel)
         {
-            var res = await authentificationService.ValiderIntervention(filterModel.declarationID, filterModel.statut, filterModel.validateur);
+            var res = await authentificationService.ValiderIntervention(filterModel.interventionID, filterModel.statut, filterModel.validateur);
             return  res;
         }
     }
