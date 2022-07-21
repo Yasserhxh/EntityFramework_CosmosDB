@@ -104,6 +104,10 @@ namespace Service.Services
         public async Task<bool> ValiderDeclaration(string declarationID, string statut)
         {
             return await this.authentificationRepository.ValiderDeclaration(declarationID, statut);
+        } 
+        public async Task<bool> ValiderIntervention(string interventionID, string statut, string validateur)
+        {
+            return await this.authentificationRepository.ValiderIntervention(interventionID, statut, validateur);
         }
     }
 }

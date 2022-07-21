@@ -157,5 +157,25 @@ namespace Repository.Repositories
             var confirm = await _dbContext.SaveChangesAsync();
             return confirm > 0;
         }
+        public async Task<bool> ValiderIntervention(string interventionID, string statut, string validateur)
+        {
+            var intervention = _dbContext.Interventions.Where(p => p.Intervention_ID == interventionID).FirstOrDefault();
+            if (intervention != null)
+            {
+                intervention.Intervention_Resultat = statut;
+                _dbContext.Entry(intervention).State = EntityState.Modified;
+                var dec = _dbContext.declarations.Where(p => p.Dclaration_ID == intervention.Intervention_DeclarationID).FirstOrDefault();
+                if (dec != null)
+                {
+                    dec.Declaration_Validateur = validateur;
+                    dec.Declaration_Statut = statut;
+                    _dbContext.Entry(dec).State = EntityState.Modified;
+
+                }
+            }
+            
+            var confirm = await _dbContext.SaveChangesAsync();
+            return confirm > 0;
+        }
     }
 }
