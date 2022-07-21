@@ -103,8 +103,8 @@ namespace Repository.Repositories
             var query =  _dbContext.declarations.OrderByDescending(p=>p.Declaration_Date).AsEnumerable();//
             if (!string.IsNullOrEmpty(statut))
                 query = query.Where(d => d.Declaration_Statut == statut);
-            else
-                query = query.Where(d => d.Declaration_Statut == "En attente");
+            /*else
+                query = query.Where(d => d.Declaration_Statut == "En attente");*/
 
             if (!string.IsNullOrEmpty(date))
             {
