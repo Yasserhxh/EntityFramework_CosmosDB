@@ -76,6 +76,7 @@ namespace Service.Services
                 Intervention intervention = mapper.Map<InterventionModel, Intervention>(interventionModel);
                 intervention.Intervention_ID = Guid.NewGuid().ToString();
                 intervention.Intervention_Date = DateTime.UtcNow;
+                intervention.Intervention_Resultat = "En attente";
                 var interventionID = await authentificationRepository.InsertIntervention(intervention);
                 return interventionID != null;
             }
